@@ -6,22 +6,26 @@ on:
             - closed
         branches:
             - master
+
+permissions:
+    contents: write
+
 jobs:
     tagging-and-release:
         name: Tagging and Release
-        runs-on: ubuntu-22.04
+        runs-on: ubuntu-latest
 
         if: github.event.pull_request.merged == true
         steps:
             - name: Checkout
               uses: actions/checkout@v4
               with:
-                fetch-depth: '0'
+                  fetch-depth: '0'
 
             -   name: Create Release
                 env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                    tag: ${{ github.ref_name }}
+                    tag: ${{ github.head_ref }}
                 run: |
                     gh release create "$tag" \
                         --repo="$GITHUB_REPOSITORY" \
