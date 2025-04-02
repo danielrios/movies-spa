@@ -1,0 +1,29 @@
+name: Tagging and Release
+run-name: Tagging and Release ${{ github.head_ref }}
+on:
+    pull_request:
+        types:
+            - closed
+        branches:
+            - master
+jobs:
+    tagging-and-release:
+        name: Tagging and Release
+        runs-on: ubuntu-22.04
+
+        if: github.event.pull_request.merged == true
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                fetch-depth: '0'
+
+            -   name: Create Release
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                    tag: ${{ github.ref_name }}
+                run: |
+                    gh release create "$tag" \
+                        --repo="$GITHUB_REPOSITORY" \
+                        --title="${tag}" \
+                        --generate-notes
