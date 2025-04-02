@@ -8,7 +8,7 @@ export function Movies() {
 	return (
 		<>
 			<section>
-				<h1>Movies populars</h1>
+				<h1>Movies popular</h1>
 				<div className={styles.moviesList}>
 					{movies.map((movie) => (
 						<MovieItem key={movie["id"]} movie={movie} />
