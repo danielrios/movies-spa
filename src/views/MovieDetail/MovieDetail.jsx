@@ -9,7 +9,7 @@ export function MovieDetail() {
 	return (
 		<section className={styles.movie}>
 			<figure className={styles.imageContainer}>
-				{movie.poster_path && (
+				{movie["poster_path"] && (
 					<img
 						src={`https://image.tmdb.org/t/p/w300/${movie["poster_path"]}`}
 						alt="poster"
@@ -17,7 +17,7 @@ export function MovieDetail() {
 				)}
 			</figure>
 			<h1>{movie.title}</h1>
-			<p>{movie.overview}</p>
+			<p>{movie["overview"]}</p>
 		</section>
 	);
 }
